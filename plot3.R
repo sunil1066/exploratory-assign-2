@@ -1,0 +1,8 @@
+nei <- readRDS("summarySCC_PM25.rds")
+scc <- readRDS("Source_Classification_Code.rds")
+s = subset(nei, nei$fips=="24510")
+a = aggregate(s$Emissions ~ s$year*s$type, data = s, sum)
+names(a) = c("year", "type", "emission")
+qplot(a$year, a$emission,data = a, group = type ,geom = "line", facets = . ~ type, col = type, xlab = "year", ylab="emission")
+dev.copy(png, "plot3.png")
+dev.off()
